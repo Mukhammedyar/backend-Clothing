@@ -5,7 +5,7 @@ const path = require('path')
 class FileService{
     save(file){
         try {
-            const fileName = uuidv4() + '.jpg'
+            const fileName = uuidv4() + '.webp'
             const currentDir = __dirname
             const staticDir = path.join(currentDir, '..', 'static')
             const filePath = path.join(staticDir, fileName)
@@ -13,7 +13,6 @@ class FileService{
             if(!fs.existsSync(staticDir)){
                 fs.mkdirSync(staticDir, {recursive: true})
             }
-
             file.mv(filePath)
 
             return fileName
@@ -21,6 +20,21 @@ class FileService{
             throw new Error("error saving file" + error)
         }
     }
+    delete(fileName) {
+        try {
+          const currentDir = __dirname;
+          const staticDir = path.join(currentDir, '..', 'static');
+          const filePath = path.join(staticDir, fileName);
+    
+          if (fs.existsSync(filePath)) {
+            fs.unlinkSync(filePath);
+          } else {
+            console.log(`File ${fileName} not found`);
+          }
+        } catch (error) {
+          throw new Error("error deleting file: " + error);
+        }
+      }
 }
 
 module.exports = new FileService()

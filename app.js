@@ -4,10 +4,8 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const categoryRouter = require("./routes/category.router");
 const productRouter = require("./routes/product.router");
-const outerWearRouter = require("./routes/outerwear.router");
 const fileUpload = require('express-fileupload');
-const shoesRouter = require("./routes/shoes.router");
-const mainRouter =  require("./routes/main.router")
+const mainRouter =  require("./routes/main.router") 
 // config dotenv
 dotenv.config();
 
@@ -22,10 +20,9 @@ app.use(fileUpload({}))
 
 // routes
 app.use("/api/categories/", categoryRouter);
-app.use("/api/underwear/", productRouter);
-app.use("/api/outerwear/", outerWearRouter);
-app.use("/api/shoes/", shoesRouter);
+app.use("/api/products/", productRouter);
 app.use("/", mainRouter);
+app.use('/static', express.static('static'))
 
 // mogo db connection
 const connectDataBase = async () => {
